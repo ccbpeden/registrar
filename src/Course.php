@@ -67,6 +67,19 @@
             }
             return $all_courses;
         }
+
+        static function find($input_id)
+        {
+            $returned_courses = Course::getAll();
+            foreach($returned_courses as $returned_course)
+            {
+                $returned_id = $returned_course->getId();
+                if($returned_id == $input_id)
+                {
+                    return $returned_course;
+                }
+            }
+        }
     }
 
 
