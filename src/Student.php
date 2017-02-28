@@ -49,7 +49,23 @@
 
         static function getAll()
         {
-            
+            $returned_students = $GLOBALS['DB']->query("SELECT * FROM students;");
+            $all_students = array();
+            foreach($returned_students as $returned_student)
+            {
+                $student_name = $returned_student['name'];
+                $admission_date = $returned_student['admission_date'];
+                $id = $returned_student['id'];
+                $new_student =  new Student($student_name, $admission_date,$id);
+                array_push($all_students,$new_student);
+            }
+            return $all_students;
+        }
+
+        function save()
+        {
+            $GLOBALS['DB']->exec("INSERT INTO students (name,admission_date) VALUES ('{$this->getName()}', '{$this->getAdmissionDate()}');");
+            $this->id = $GLOBALS['DB']->lastInsertId();
         }
     }
 ?>

@@ -44,5 +44,17 @@
 
             $this->assertEquals([$new_name, $new_admission_date], $result);
         }
+
+        function test_saveAndGetAll()
+        {
+            $student_name = "Maritsi Yanbolivart";
+            $admission_date = "2045-05-17";
+            $new_student = new Student($student_name, $admission_date);
+            $new_student->save();
+
+            $result = Student::getAll();
+            var_dump($result);
+            $this->assertEquals([$new_student], $result);
+        }
     }
 ?>
