@@ -23,14 +23,26 @@
       {
           //Arrange
           $course_name = "Humanities";
-          $admittance = "2017/02/28";
-          $test_name = new Course($course_name, $admittance);
+          $course_number = "HUM101";
+          $test_name = new Course($course_name, $course_number);
 
           //Act
-          $result = $test_name->getName();
+          $result = $test_name->getCourseName();
 
           //Assert
           $this->assertEquals($course_name, $result);
+      }
+
+      function test_save()
+      {
+          $course_name = "Humanities";
+          $course_number = "HUM101";
+          $test_name = new Course($course_name, $course_number);
+          $test_name->save();
+
+          $result = Course::getAll();
+
+          $this->assertEquals([$test_name], $result);
       }
 
   }
