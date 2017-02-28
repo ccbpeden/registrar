@@ -6,6 +6,8 @@
 
   require_once "src/Course.php";
   require_once "src/Student.php";
+  require_once "src/Department.php";
+
 
   $server = 'mysql:host=localhost:8889;dbname=registrar_test';
   $username = 'root';
@@ -53,7 +55,6 @@
             $new_student->save();
 
             $result = Student::getAll();
-            var_dump($result);
             $this->assertEquals([$new_student], $result);
         }
 
@@ -74,7 +75,7 @@
             $this->assertEquals($test_student, $result);
         }
 
-        function test_student_update()
+        function test_studentUpdate()
         {
             $student_name = "Henery";
             $admission_date = "2018--7-10";
@@ -87,6 +88,38 @@
             $result = array($test_student->getName(), $test_student->getAdmissionDate());
 
             $this->assertEquals([$student_name2, $admission_date2], $result);
+        }
+
+        function test_delete()
+        {
+            $student_name = "Sandy Lake";
+            $admission_date = "1355-19-01";
+            $test_student = new Student($student_name, $admission_date);
+            $test_student->save();
+
+            $test_student->delete();
+            $result = Student::getAll();
+
+            $this->assertEquals([], $result);
+        }
+
+        function test_addCourse()
+        {
+            $student_name = "Henery";
+            $admission_date = "2018--7-10";
+            $test_student = new Student($student_name, $admission_date);
+            $test_student->save();
+            $course_name = "Humanities";
+            $course_number = "HUM101";
+            $test_course = new Course($course_name, $course_number);
+            $test_course->save();
+            $course_id = $test_course->getId();
+
+            $test_student->addCourse($course_id);
+            $result = $test_student->getCourses();
+            var_dump($result);
+
+            $this->assertEquals([$test_course], $result);
         }
 
 

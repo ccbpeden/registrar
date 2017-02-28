@@ -90,8 +90,28 @@
 
         function delete()
         {
-                $GLOBALS['DB'] -> exec("DELETE FROM courses WHERE id = {$this->getId()};");
+            $GLOBALS['DB'] -> exec("DELETE FROM courses WHERE id = {$this->getId()};");
         }
+
+        function getStudents()
+        {
+            $returned_students = $GLOBALS['DB']->query
+            ("SELECT students.* FROM
+                courses JOIN student_courses ON (student_courses.course_id =  courses.id)
+                JOIN students ON (students.id = student_courses.student_id)
+                WHERE courses.id = {$this->getId()};");
+            $output_students = array();
+            foreach($returned_students as $returned_student)
+            {
+                $student_name = $returned_student['name'];
+                $admission_date = $returned_student['admission_date'];
+                $student_id = $returned_student['id'];
+                $new_student = new Student($student_name, $admission_date, $student_id);
+                array_push($output_students,$new_student);
+            }
+            return $output_students;
+        }
+    
     }
 
 

@@ -87,5 +87,34 @@
             $this->setName($new_student_name);
             $this->setAdmissionDate($new_admission_date);
         }
+
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM students WHERE id = {$this->getId()};");
+        }
+
+        function addCourse($course_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO student_courses (student_id, course_id) VALUES ({$this->getId()}, {$course_id});");
+        }
+
+        function getCourses()
+        {
+            $returned_courses = $GLOBALS['DB']->query
+            ("SELECT courses.* FROM
+                students JOIN student_courses ON (student_courses.student_id = students.id) 
+                JOIN courses ON (courses.id = student_courses.course_id)
+                WHERE students.id = {$this->getId()};");
+            $output_courses = array();
+            foreach ($returned_courses as $returned_course)
+            {
+                $course_name = $returned_course['course_name'];
+                $course_number = $returned_course['course_number'];
+                $course_id = $returned_course['id'];
+                $new_course = new Course($course_name, $course_number, $course_id);
+                array_push($output_courses, $new_course);
+            }
+            return $output_courses;
+        }
     }
 ?>

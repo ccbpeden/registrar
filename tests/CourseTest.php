@@ -6,6 +6,7 @@
 
   require_once "src/Course.php";
   require_once "src/Student.php";
+  require_once "src/Department.php";
 
   $server = 'mysql:host=localhost:8889;dbname=registrar_test';
   $username = 'root';
@@ -92,5 +93,28 @@
             $this->assertEquals([],$result);
         }
 
+        function test_getStudents()
+        {
+            $course_name = "Jive Turkey";
+            $course_number = "Jive101";
+            $test_course = new Course($course_name, $course_number);
+            $test_course->save();
+            $course_id = $test_course->getId();
+            $student_name = "Javiar Malfuncas";
+            $admission_date = "1902-12-05";
+            $test_student = new Student($student_name,$admission_date);
+            $test_student->save();
+            $test_student->addCourse($course_id);
+            $search_id = $test_student->getId();
+            $student_name2 = "Juantas Malidas";
+            $admission_date2 = "1902-12-05";
+            $test_student2 = new Student($student_name2,$admission_date2);
+            $test_student2->save();
+            $test_student2->addCourse($course_id);
+
+            $result = $test_course->getStudents();
+
+            $this->assertEquals([$test_student, $test_student2], $result);
+        }
   }
 ?>
