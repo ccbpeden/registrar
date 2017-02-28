@@ -71,8 +71,22 @@
 
             $result = Student::find($search_id);
 
-            $this->assertEquals($test_student, $result);            
+            $this->assertEquals($test_student, $result);
+        }
 
+        function test_student_update()
+        {
+            $student_name = "Henery";
+            $admission_date = "2018--7-10";
+            $test_student = new Student($student_name, $admission_date);
+            $test_student->save();
+            $student_name2 = "Guy Hawk";
+            $admission_date2 = "1938-20-10";
+
+            $test_student->update($student_name2,$admission_date2);
+            $result = array($test_student->getName(), $test_student->getAdmissionDate());
+
+            $this->assertEquals([$student_name2, $admission_date2], $result);
         }
 
 

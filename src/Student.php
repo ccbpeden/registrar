@@ -80,5 +80,12 @@
                 }
             }
         }
+
+        function update($new_student_name,$new_admission_date)
+        {
+            $GLOBALS ['DB']->exec("UPDATE students SET name = '{$new_student_name}', admission_date = '{$new_admission_date}' WHERE id = {$this->getId()};");
+            $this->setName($new_student_name);
+            $this->setAdmissionDate($new_admission_date);
+        }
     }
 ?>
