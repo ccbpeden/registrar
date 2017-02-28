@@ -67,5 +67,18 @@
             $GLOBALS['DB']->exec("INSERT INTO students (name,admission_date) VALUES ('{$this->getName()}', '{$this->getAdmissionDate()}');");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
+
+        static function find($input_id)
+        {
+            $returned_students = Student::getAll();
+            foreach($returned_students as $returned_student)
+            {
+                $returned_id = $returned_student->getId();
+                if($returned_id == $input_id)
+                {
+                    return $returned_student;
+                }
+            }
+        }
     }
 ?>

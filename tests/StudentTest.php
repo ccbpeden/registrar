@@ -56,5 +56,26 @@
             var_dump($result);
             $this->assertEquals([$new_student], $result);
         }
+
+        function test_find()
+        {
+            $student_name = "Javiar Malfuncas";
+            $admission_date = "1902-12-05";
+            $test_student = new Student($student_name,$admission_date);
+            $test_student->save();
+            $search_id = $test_student->getId();
+            $student_name2 = "Juantas Malidas";
+            $admission_date2 = "1902-12-05";
+            $test_student2 = new Student($student_name2,$admission_date2);
+            $test_student2->save();
+
+            $result = Student::find($search_id);
+
+            $this->assertEquals($test_student, $result);            
+
+        }
+
+
     }
+
 ?>
