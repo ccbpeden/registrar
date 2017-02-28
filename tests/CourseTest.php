@@ -79,5 +79,18 @@
 
         }
 
+        function test_delete()
+        {
+            $course_name = "Jive Turkey";
+            $course_number = "Jive101";
+            $test_course = new Course($course_name, $course_number);
+            $test_course->save();
+
+            $test_course->delete();
+            $result = Course::getAll();
+
+            $this->assertEquals([],$result);
+        }
+
   }
 ?>

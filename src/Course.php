@@ -87,6 +87,11 @@
             $this->setCourseName($new_course_name);
             $this->setCourseNumber($new_course_number);
         }
+
+        function delete()
+        {
+                $GLOBALS['DB'] -> exec("DELETE FROM courses WHERE id = {$this->getId()};");
+        }
     }
 
 
