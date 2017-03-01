@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Registrar</title>
+    </head>
+    <body>
+        {% if students is not empty %}
+            <h2>Currently Enrolled Students:</h2>
+            <ul>
+                {% for student in students %}
+                <li><a href="/editstudent/{{student.getId}}">{{student.getName}}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <h3>Add a New Student:</h3>
+        <form class="" action="/addnewstudent" method="post">
+            <label for="student_name">Student Name</label>
+            <input type="text" name="student_name" id="student_name" value="">
+            <label for="admission_date">Admission Date</label>
+            <input type="text" name="admission_date" id="admission_date" value="">
+            <button type="submit" name="button">Add A Student</button>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Registrar</title>
+    </head>
+    <body>
+        <h2>Class Management Page</h2>
+        Course: {{course.getCourseNumber}}
+        <h2>{{ course.getCourseName }}</h2>
+
+        {% for student in currentstudents %}
+        <a href="/editstudent/{{student.getId}}">{{student.getName}}</a>
+        {% endfor %}
+
+        <h3>Add a Current Student:</h3>
+        <form class="" action="/addcurrentstudent" method="post">
+            <input type="hidden" name="course_id" value="{{course.getId}}">
+            <select class="" name="student_id" id="student_id">
+                {% for student in allstudents %}
+                    <option value={{student.getId}}>{{student.getName}}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" name="button">Add Student</button>
+        </form>
+
+
+
+
+
+    </body>
+</html>
