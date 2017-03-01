@@ -73,5 +73,12 @@
         return $app['twig']-> render('edit_student.html.twig' , array('student' => $new_student , 'courses' => $new_student->getCourses() , 'currentcourses' => Course::getAll()));
     });
 
+    $app->patch("/editstudent", function() use ($app) {
+        $current_student = Student::find($_POST['student_id']);
+        $current_student->update($_POST['student_name'], $_POST['admission_date']);
+        return $app['twig']-> render('edit_student.html.twig' , array('student' => $current_student , 'courses' => $current_student->getCourses() , 'currentcourses' => Course::getAll()));
+
+    });
+
     return $app;
 ?>

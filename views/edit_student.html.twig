@@ -14,7 +14,6 @@
             {% endfor %}
         {% endif %}
 
-
         <h2>Add a Course</h2>
         <form class="" action="/addcourse" method="post">
             <input type="hidden" name="student_id" value="{{student.getId}}">
@@ -25,6 +24,17 @@
                 {% endfor %}
             </select>
             <button type="submit" name="button">add course</button>
+        </form>
+
+        <h2>Edit this student's details:</h2>
+        <form class="" action="/editstudent" method="post">
+            <input type="hidden" name="_method" value="patch">
+            <input type="hidden" name="student_id" value="{{student.getId}}">
+            <label for="student_name">New Name:</label>
+            <input type="text" name="student_name" value="{{student.getName}}">
+            <label for="admission_date"></label>
+            <input type="text" name="admission_date" value="{{student.getAdmissionDate}}">
+            <button type="submit" name="button">Submit Changes</button>
         </form>
     </body>
 </html>
